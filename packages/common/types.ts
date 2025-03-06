@@ -1,12 +1,12 @@
-import { ModuleKind } from "typescript";
+
 import { z } from "zod"
 
 
-export const Gender = z.enum(["men", "women", "other"]);
+
 
 export const TrainModel = z.object({
     name: z.string(),
-    type: Gender,
+    type: z.enum(["men", "women", "other"]),
     age: z.number(),
     ethinicity: z.enum(["White",
         "Black",

@@ -1,5 +1,6 @@
 import express from "express"
 import { TrainModel, GenerateImage, GenerateImageFromPack } from "common/types"
+import { prisma } from "db"
 
 const app = express()
 
