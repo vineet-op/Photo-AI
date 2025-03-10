@@ -44,6 +44,12 @@ enum statusEnum {
   Success
 }
 
+enum modelTrainingEnum {
+  Pending
+  Fail
+  Success
+}
+
 model User {
   id             String   @id @default(uuid())
   username       String
@@ -53,7 +59,7 @@ model User {
 }
 
 model Model {
-  id             String           @id @default(uuid())
+  id             String            @id @default(uuid())
   name           String
   type           ModelTypeEnum
   age            Int
@@ -61,10 +67,14 @@ model Model {
   eyeColor       EyeColorEnum
   bald           Boolean
   userId         String
+  triggerWord    String?
+  tensorPath     String?
+  trainingStatus modelTrainingEnum @default(Pending)
   TrainingImages TrainingImages[]
   OutputImages   OutputImages[]
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  falAiRequestId String?
 }
 
 model TrainingImages {
@@ -75,15 +85,16 @@ model TrainingImages {
 }
 
 model OutputImages {
-  id        String     @id @default(uuid())
-  imageUrl  String
-  modelId   String
-  userId    String
-  prompt    String
-  status    statusEnum @default(Pending)
-  model     Model      @relation(fields: [modelId], references: [id])
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id             String     @id @default(uuid())
+  imageUrl       String
+  modelId        String
+  userId         String
+  prompt         String
+  status         statusEnum @default(Pending)
+  model          Model      @relation(fields: [modelId], references: [id])
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  falAiRequestId String?
 }
 
 model Packs {

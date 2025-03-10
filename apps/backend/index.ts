@@ -126,6 +126,47 @@ app.get("/image/bulk", async (req, res) => {
     })
 })
 
+app.post("/fal-ai/webhook/train", async (req, res) => {
+
+    const requestId = req.body.request_id
+
+    await prisma.model.updateMany({
+        where: {
+            falAiRequestId: requestId
+        },
+        data: {
+            trainingStatus: "Success",
+            tensorPath: req.body.tensor_path
+
+        },
+    })
+
+    res.json({
+        message: "Webhook received"
+    })
+})
+
+
+app.post("/fal-ai/webhook/image", async (req, res) => {
+
+
+    const requestId = req.body.request_id
+
+    await prisma.outputImages.updateMany({
+        where: {
+            falAiRequestId: requestId
+        },
+        data: {
+            status: "Success",
+            imageUrl: req.body.image_url
+
+        },
+    })
+
+    res.json({
+        message: "Webhook received"
+    })
+})
 
 app.listen(8000, () => {
     console.log("Server is running on port 8000")

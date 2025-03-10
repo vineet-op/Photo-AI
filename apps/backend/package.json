@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "start": "bun run index.ts",
-    "dev": "bun run index.ts" 
+    "dev": "bun run index.ts"
   },
   "devDependencies": {
     "@types/bun": "latest"
@@ -14,10 +14,11 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@fal-ai/client": "^1.2.3",
     "@types/express": "^5.0.0",
-    "express": "^4.21.2",
-    "common":"*",
-    "db":"*"
+    "@types/node": "^22.13.10",
+    "common": "*",
+    "db": "*",
+    "express": "^4.21.2"
   }
-
 }
