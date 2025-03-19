@@ -13,9 +13,20 @@ const USER_ID = "User123"
 const FalAiModel = new FaLAIModel()
 
 app.get("/pre-signed-url", async (req, res) => {
-    const key = `models/${Date.now()}_${Math.random()}.zip`;
-    const url = S3Client.presign(key, {
 
+    const key = `models/${Date.now()}_${Math.random()}.zip`
+
+    const url = S3Client.presign(key, {
+        accessKeyId: process.env.ACCESS_KEY_ID,
+        secretAccessKey: process.env.SECRET_ACCESS_KEY,
+        endpoint: process.env.ENDPOINT,
+        bucket: process.env.BUCKET,
+        expiresIn: 60 * 5
+    });
+
+    res.json({
+        url,
+        key
     })
 })
 
