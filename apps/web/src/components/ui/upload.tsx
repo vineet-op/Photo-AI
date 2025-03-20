@@ -2,7 +2,6 @@
 
 import JSZip from "jszip";
 import axios from "axios";
-import { useState, useCallback } from "react";
 import {
     Card,
     CardHeader,
@@ -11,11 +10,12 @@ import {
     CardContent,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import { BACKEND_URL, CLOUDFLARE_URL } from "../../../app/config";
-import { cn } from "@/lib/utils";
 
-export function UploadModal() {
+
+export function UploadModal({ onUploadDone }: {
+    onUploadDone: (zipUrl: string) => void
+}) {
     return (
         <Card className="w-full rounded-none border-none mx-auto shadow-none">
             <CardHeader className="border-b pb-4 px-0">
@@ -52,8 +52,23 @@ export function UploadModal() {
                                 input.accept = "image/*";
                                 input.multiple = true;
                                 input.onchange = async () => {
-                                    if (input.files?.length)
-                                        (Array.from(input.files));
+                                    const zip = JSZip();
+                                    const res = await axios.get(`${BACKEND_URL}/pre-signed-url`)
+                                    const url = res.data.url
+                                    const key = res.data.key
+                                    if (input.files) {
+                                        for (const file of input.files) {
+                                            const content = await file.arrayBuffer();
+                                            zip.file(file.name, content)
+                                        }
+                                        const content = await zip.generateAsync({ type: "blob" })
+                                        const formData = new FormData();
+                                        formData.append("file", content)
+                                        formData.append("key", url)
+                                        const res = await axios.put(url, formData)
+                                        onUploadDone(`${CLOUDFLARE_URL}/${key}`)
+                                    }
+
                                 };
                                 input.click();
                             }}
@@ -64,7 +79,6 @@ export function UploadModal() {
                             Supported formats: PNG, JPG, GIF
                         </p>
                     </div>
-
                 </div>
             </CardContent>
         </Card>

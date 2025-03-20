@@ -3,10 +3,12 @@ import { TrainModel, GenerateImage, GenerateImageFromPack } from "common/types"
 import { prisma } from "db"
 import { S3Client } from "bun"
 import { FaLAIModel } from "./model/FalAIModel"
+import cors from "cors"
 
 const app = express()
 
 app.use(express.json())
+app.use(cors())
 
 const USER_ID = "User123"
 
@@ -15,13 +17,14 @@ const FalAiModel = new FaLAIModel()
 app.get("/pre-signed-url", async (req, res) => {
 
     const key = `models/${Date.now()}_${Math.random()}.zip`
-
     const url = S3Client.presign(key, {
+        method: "PUT",
         accessKeyId: process.env.ACCESS_KEY_ID,
         secretAccessKey: process.env.SECRET_ACCESS_KEY,
         endpoint: process.env.ENDPOINT,
         bucket: process.env.BUCKET,
-        expiresIn: 60 * 5
+        expiresIn: 60 * 5,
+        type: "application/zip"
     });
 
     res.json({

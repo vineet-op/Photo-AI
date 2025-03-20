@@ -13,6 +13,7 @@
     "zod": "^3.24.2"
   },
   "exports":{
-    "./types":"./types.ts"
+    "./types":"./types.ts",
+    "./inferred":"./inferred-types.ts"
   }
 }
