@@ -41,17 +41,10 @@ const HeroImageGrid = () => {
             animationDelay: "700ms"
         },
         {
-            id: 5,
-            src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
-            alt: "Original portrait photo",
-            className: "col-span-1 row-span-1 rounded-xl object-cover w-full h-full",
-            animationDelay: "700ms"
-        },
-        {
             id: 6,
             src: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
             alt: "Original portrait photo",
-            className: "col-span-1 row-span-2 rounded-xl object-fit w-full ",
+            className: "col-span-1 row-span-1 rounded-xl object-fit w-full h-ull",
             animationDelay: "900ms"
         },
     ];

@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { use, useState } from 'react'
 import { Button } from "@/components/ui/button"
 import {
     Card,
@@ -25,7 +25,7 @@ import axios from 'axios'
 import { BACKEND_URL } from 'app/config'
 import { TrainModelInput, GenerateImageFromPackInput, GenerateImageInput } from "common/inferred"
 import { useRouter } from 'next/navigation'
-
+import { useAuth } from "@clerk/nextjs"
 
 const page = () => {
 
@@ -41,9 +41,7 @@ const page = () => {
 
     }
 
-
-
-
+    const { getToken } = useAuth()
     const [zipUrl, setZipUrl] = useState("")
     const [name, setName] = useState<string>("");
     const [type, setType] = useState("Man");
@@ -67,7 +65,12 @@ const page = () => {
             bald
         }
 
-        const response = await axios.post(`${BACKEND_URL}/ai/training`, input)
+        const token = await getToken()
+        const response = await axios.post(`${BACKEND_URL}/ai/training`, input, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
         router.push("/")
 
     }

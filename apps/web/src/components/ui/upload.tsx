@@ -30,16 +30,7 @@ export function UploadModal({ onUploadDone }: {
                 <div
                     className="flex justify-center items-center flex-col"
                 >
-                    <CloudUploadIcon className="w-16 h-16  text-neutral-400" />
-
-
-                    <div className="w-full max-w-sm space-y-3 text-center">
-
-                        <p className="text-xs text-neutral-500">
-                        </p>
-                    </div>
-
-                    <div className="text-center space-y-4">
+                    <div className="text-center space-y-2">
                         <p className="text-neutral-500">
                             <span className="font-medium">Drag and drop files here</span> or
                         </p>
@@ -82,24 +73,5 @@ export function UploadModal({ onUploadDone }: {
                 </div>
             </CardContent>
         </Card>
-    );
-}
-
-function CloudUploadIcon(props: React.SVGProps<SVGSVGElement>) {
-    return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.2" />
-            <path d="M12 12v9" />
-            <path d="m16 16-4-4-4 4" />
-        </svg>
     );
 }
